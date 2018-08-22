@@ -9,10 +9,10 @@ import matplotlib.pyplot as plt
 import matplotlib.mlab as mlab
 
 mu, sigma = 10, 15
-x = mu + sigma*np.random.randn(10000)
+x = mu + sigma*np.random.randn(1000)
 
 
-n, bins, patches = plt.hist(x, 500, normed=1, facecolor='green', alpha=0.75)
+n, bins, patches = plt.hist(x, 50, normed=1, facecolor='green', alpha=0.75)
 y = mlab.normpdf( bins, mu, sigma)
 l = plt.plot(bins, y, 'r--', linewidth=1)
 
