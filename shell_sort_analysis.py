@@ -16,15 +16,6 @@ def ddd(array):
 
 
 def shellsort(a):
-    def new_increment1(a):
-        i = int(len(a) / 2)
-        yield i
-        while i != 1:
-            if i == 2:
-                i = 1
-            else:
-                i = int(round(i / 2))
-            yield i
 
     def new_increment2(a):
         N = int(len(a))
@@ -35,31 +26,21 @@ def shellsort(a):
             yield h
             h //= 3
 
-    list_of_dict = []
-    list_of_k = []
-
+    dict = {}
     for increment in new_increment2(a):
-        dict = {}
+        values = []
         for i in xrange(increment, len(a)):
-            t = 0
+            iter = 0
             for j in xrange(i, increment - 1, -increment):
+                iter += 1
                 if a[j - increment] < a[j]:
                     break
                 a[j], a[j - increment] = a[j - increment], a[j]
-                t += 1
-            v = dict.get(t)
-            if v == None:
-                v = 0
-            dict.update({t: v + 1})
+            values.append(iter)
+        dict.update({increment:values})
+    print(dict)
+    print_maxim_dict(maximize(dict,3))
 
-        dict = sorted(dict.items(), key=lambda t: t[0])
-        list_of_dict.append(dict)
-
-        list_of_k.append(increment)
-
-    get_splot(list_of_dict, list_of_k)
-
-    plt.show()
 
 
 def get_array(size):
@@ -88,17 +69,22 @@ def get_splot(dict_list, list_of_ks):
             break
 
 
-def count_time():
-    t1 = time.time()
-    print_hist(get_array(100000))
-    t2 = time.time()
-    print('The work time of the Shell algorithms is ' + str(t2 - t1))
-    return t2 - t1
+def maximize(dict, t):
+    maximized_dict = {}
+    for key, value in dict.items():
+        summed_array = []
+        for i in range(0, len(value), t):
+            for j in range(i, i + t):
+                max = value[j]
+                if value[j]>max : max = value[j]
+            summed_array.append(value[j])
+        maximized_dict.update({key: summed_array})
+    return maximized_dict
 
 
-def time_mean(iterations):
-    total_time = 0
-    for i in range(0, iterations):
-        total_time += count_time()
-    print('Mean of work of Shell alg. with ' + str(iterations) + ' iterations is ' + str(total_time / iterations))
-    return total_time
+def print_maxim_dict(max_dict):
+    for key, value in max_dict.items():
+        print('k = ' + str(key)+': '+str(value))
+
+
+shellsort(get_array(10))
