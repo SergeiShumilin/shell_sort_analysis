@@ -2,17 +2,6 @@ from numpy import *
 from numpy.core.tests.test_mem_overlap import xrange
 import numpy.random as rd
 import matplotlib.pyplot as plt
-import time
-
-
-def ddd(array):
-    N = int(len(array))
-    h = 1
-    res = [1]
-    while h < N / 3:
-        h = 3 * h + 1
-        res.append(h)
-    return res
 
 
 def shellsort(a):
@@ -74,12 +63,21 @@ def maximize(dict, t):
     for key, value in dict.items():
         summed_array = []
         for i in range(0, len(value), t):
+            max = value[i]
             for j in range(i, i + t):
-                max = value[j]
                 if value[j]>max : max = value[j]
-            summed_array.append(value[j])
+            summed_array.append(max)
         maximized_dict.update({key: summed_array})
+    print(sum_up(maximized_dict))
     return maximized_dict
+
+
+def sum_up(maxim_dict):
+    I = 0
+    for key,value in maxim_dict.items():
+        I += sum(value)
+    return I
+
 
 
 def print_maxim_dict(max_dict):
