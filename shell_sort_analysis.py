@@ -51,6 +51,7 @@ def shellsort(a, v, seq, Show_dict=False, Show_Maximized_Dict=False, Show_Itarat
                 if a[j - gap] < a[j]:
                     break
                 a[j], a[j - gap] = a[j - gap], a[j]
+
             values.append(iter)
         ks.append(gap)
         dict.update({gap: values})
