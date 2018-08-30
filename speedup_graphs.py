@@ -2,8 +2,6 @@
     USE `plot_speedups` with `names_list` = list of file names with data
 """
 
-
-
 import re
 import matplotlib.pyplot as plt
 
@@ -39,5 +37,3 @@ def plot_it(elements_number, efficiency_coef, filename):
     plt.plot(elements_number, efficiency_coef)
     plt.show()
 
-
-plot_speed_ups()
