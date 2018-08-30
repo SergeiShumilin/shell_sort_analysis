@@ -1,2 +1,2 @@
 # shell_sort_analysis
-analysing shell sort algorith
+analysing shell sort algorithm
