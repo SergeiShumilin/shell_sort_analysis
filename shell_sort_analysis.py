@@ -1,3 +1,6 @@
+"""Call `number_of_element` function with the number of sequence as an argument."""
+
+
 from numpy import *
 from numpy.core.tests.test_mem_overlap import xrange
 import numpy.random as rd
