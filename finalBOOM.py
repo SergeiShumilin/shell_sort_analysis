@@ -3,7 +3,7 @@ from genericpath import isfile
 from macpath import join
 from os import listdir
 import matplotlib.pyplot as plt
-
+########################################################################################################################
 def get_data(seq):
     eff_norm = []
     eff_wo_k = []
