@@ -83,7 +83,6 @@ def get_data(filename):
         if line.find('speedup') != -1:
             result = re.search(r'(\d*\.\d*) times', line)
             speedups.append(float(result.group(1)))
-
     return el_numbers, speedups
 
 
@@ -210,5 +209,5 @@ def plot_graph(seq):
 
 
 if __name__ == '__main__':
-    plot_graph('s')
+    collect_names()
 
