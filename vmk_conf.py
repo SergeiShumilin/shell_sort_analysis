@@ -102,4 +102,4 @@ def plot_bar_graph():
 
 
 if __name__=='__main__':
-    pass
+    plot_seaborn_bar_graph()

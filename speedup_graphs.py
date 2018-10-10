@@ -209,5 +209,5 @@ def plot_graph(seq):
 
 
 if __name__ == '__main__':
-    collect_names()
+    plot_graph('s')
 
