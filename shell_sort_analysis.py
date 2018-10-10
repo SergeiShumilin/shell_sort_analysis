@@ -1,10 +1,7 @@
 """Call `number_of_element` function with the number of sequence as an argument."""
 
-<<<<<<< HEAD
-from matplotlib.ticker import FormatStrFormatter
-=======
 
->>>>>>> 6b555b70be9415786b1291a198736ebcf409f83a
+from matplotlib.ticker import FormatStrFormatter
 from numpy import *
 from numpy.core.tests.test_mem_overlap import xrange
 import numpy.random as rd

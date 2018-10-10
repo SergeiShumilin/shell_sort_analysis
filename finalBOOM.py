@@ -90,7 +90,7 @@ def plot2():
     ns = range(10000, 2000001, 10000)
     fig = plt.figure()
     ax = fig.add_subplot(111)
-    ax.plot(ns, get_data2('result_s.txt'), label='последов. Сэджвика', color='black', linestyle='--', dashes=(30, 3))
+    ax.plot(ns, get_data2('result_s.txt'), label='последов. Сэджвика', color='black', linestyle='--', dashes=(30, 5))
     ax.plot(ns, get_data2('result_h.txt'), label='последов. Хиббарда', color='black',linewidth=4)
     ax.plot(ns, get_data2('result_2.txt'), label='последов. Пратта', color='black')
     make_legend(ax)
