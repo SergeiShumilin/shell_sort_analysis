@@ -39,9 +39,9 @@ def plot():
     ns = range(10000,2000001,10000)
     fig = plt.figure()
     ax = fig.add_subplot(111)
-    ax.plot(ns,get_data('s')[0],label='последов. Сэджвика',color='black',linestyle='--',dashes=(30,5))
-    ax.plot(ns,get_data('h')[0],label='последов. Хиббарда',color='black',linewidth=4)
-    ax.plot(ns,get_data('2')[0],label='последов. Пратта',color='black')
+    ax.plot(ns,get_data('s')[0],label='Sedgwick sequence',color='black',linestyle=':',linewidth=3)
+    ax.plot(ns,get_data('h')[0],label='Hibbard sequence',color='black',linewidth=4)
+    ax.plot(ns,get_data('2')[0],label='Pratt sequence',color='black')
     make_legend(ax)
     set_fontsize(ax)
     add_inscriptions(ax)
@@ -49,8 +49,8 @@ def plot():
 
 
 def add_inscriptions(ax):
-    ax.axes.set_xlabel('Число элементов', size=30)
-    ax.axes.set_ylabel('Эффективность векторизации', size=30)
+    ax.axes.set_xlabel('Number of elements', size=30)
+    ax.axes.set_ylabel('Vectorization efficiency', size=30)
 
 
 
@@ -90,9 +90,9 @@ def plot2():
     ns = range(10000, 2000001, 10000)
     fig = plt.figure()
     ax = fig.add_subplot(111)
-    ax.plot(ns, get_data2('result_s.txt'), label='последов. Сэджвика', color='black', linestyle='--', dashes=(30, 5))
-    ax.plot(ns, get_data2('result_h.txt'), label='последов. Хиббарда', color='black',linewidth=4)
-    ax.plot(ns, get_data2('result_2.txt'), label='последов. Пратта', color='black')
+    ax.plot(ns, get_data2('result_s.txt'), label='Sedgwick sequence', color='black', linestyle=':',linewidth=3)
+    ax.plot(ns, get_data2('result_h.txt'), label='Hibbard sequence', color='black',linewidth=4)
+    ax.plot(ns, get_data2('result_2.txt'), label='Pratt sequence', color='black')
     make_legend(ax)
     set_fontsize(ax)
     add_inscriptions(ax)
