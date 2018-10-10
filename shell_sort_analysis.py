@@ -1,8 +1,12 @@
+"""Call `number_of_element` function with the number of sequence as an argument."""
+
+from matplotlib.ticker import FormatStrFormatter
 from numpy import *
 from numpy.core.tests.test_mem_overlap import xrange
 import numpy.random as rd
 import matplotlib.pyplot as plt
-
+import seaborn as sbn
+import time
 
 def shellsort(a, v, seq, Show_dict=False, Show_Maximized_Dict=False, Show_Itarations=False, Show_Hist=False):
     """
@@ -13,6 +17,7 @@ def shellsort(a, v, seq, Show_dict=False, Show_Maximized_Dict=False, Show_Itarat
                 2 - pratt1
                 3 - pratt2
                 4 - fibonacci
+                5 - sedgewick
     :param Show_dict:
     :param Show_Maximized_Dict:
     :param Show_Itarations:
@@ -22,7 +27,6 @@ def shellsort(a, v, seq, Show_dict=False, Show_Maximized_Dict=False, Show_Itarat
     dict = {}
     ks = []
     list_of_dicts = []
-
     gaps = choose_seq(seq,a)
 
     for gap in gaps:
@@ -34,12 +38,10 @@ def shellsort(a, v, seq, Show_dict=False, Show_Maximized_Dict=False, Show_Itarat
                 if a[j - gap] < a[j]:
                     break
                 a[j], a[j - gap] = a[j - gap], a[j]
-
             values.append(iter)
 
         ks.append(gap)
         dict.update({gap: values})
-
     list_of_dicts.append(dict)
 
     max_dic = maximize(dict, v)
@@ -59,6 +61,31 @@ def shellsort(a, v, seq, Show_dict=False, Show_Maximized_Dict=False, Show_Itarat
         get_splot(max_dic, ks)
 
     return I
+
+def print_kth_hist(k,gaps, dict):
+    values = dict.get(gaps[k])
+    sbn.distplot(values)
+    fig = plt.figure()
+    fig, ax = plt.subplots()
+    counts, bins, patches = ax.hist(values, facecolor='yellow', edgecolor='gray',rwidth=0.8,align = 'left')
+    ax.set_xticks(bins)
+    ax.set_title(gaps[k])
+    # Set the xaxis's tick labels to be formatted with 1 decimal place...
+    ax.xaxis.set_major_formatter(FormatStrFormatter('%0.1f'))
+
+
+    plt.show()
+
+def print_hists(dict):
+    if len(dict) % 2 != 0:
+        fig, axs = plt.subplots(2, (len(dict) // 2) + 1, sharey='row')
+        axs[-1, -1].axis('off')
+    else:
+        fig, axs = plt.subplots(2, len(dict) // 2, sharey='row')
+
+    for ax, dict in zip(fig.axes, dict):
+        values = dict.get(dict)
+        ax.hist(values)
 
 def shell(array):
     """
@@ -133,6 +160,16 @@ def sedgewick(array):
         res.append(el)
     return list(reversed(res))
 
+def hibbard(array):
+    i = 1
+    res = []
+    n = 0
+    while n < len(array):
+        n = 2 ** i - 1
+        res.append(n)
+        i += 1
+    return res
+
 def choose_seq(n, array):
     if n == 1:
         return shell(array)
@@ -141,29 +178,30 @@ def choose_seq(n, array):
     elif n == 3:
         return pratt2(array)
     elif n == 4:
-        return fibonacci(array)
-    elif n == 5:
         return sedgewick(array)
+    elif n == 5:
+        return hibbard(array)
 
 
 def get_array(size):
     return rd.sample(size)
 
 
-def get_splot(dict_list, list_of_ks):
+def get_splot(dict_list, ks):
     if len(dict_list) % 2 != 0:
-        fig, axs = plt.subplots(2, (len(dict_list) // 2) + 1, sharey='row')
+        fig, axs = plt.subplots(2, (len(dict_list) // 2) + 1)#, sharey='row'
         axs[-1, -1].axis('off')
     else:
-        fig, axs = plt.subplots(2, len(dict_list) // 2, sharey='row')
+        fig, axs = plt.subplots(2, len(dict_list) // 2)#, sharey='row'
     i = 0
     for ax, dict in zip(fig.axes, dict_list):
         values = dict_list.get(dict)
-        row = arange(len(values))
-        ax.set_title('k =' + str(list_of_ks[i]))
+#        row = arange(len(values))
+        ax.set_title('k =' + str(ks[i]))
         i += 1
-        ax.axhline(y=16, color='r', linestyle='--', lw=0.5)
-        ax.bar(row, values, width=0.3)
+ #       ax.axhline(y=16, color='r', linestyle='--', lw=0.5)
+        ax.hist(values,rwidth=2,align = 'mid')
+     #      ax.bar(row, values, width=0.3)
     plt.show()
 
 
@@ -193,18 +231,23 @@ def print_maxim_dict(max_dict):
 
 
 def number_of_el_I_depend(seq):
-    x = [i for i in range(50000, 1000000, 50000)]
+    x = [i for i in range(10000, 200000, 50000)]
+    x = [10000,100000]
     y = [shellsort(get_array(size),16,seq, Show_Itarations=True) for size in x]
     a, b, c = polyfit(x, y, 2)
     x_out = linspace(0, max(x), 1000)  # choose 20 points, 10 in, 10 outside original range
     y_pred = polyval([a, b, c], x_out)
     fig = plt.figure()
     ax = fig.add_subplot(111)
-    ax.axes.set_xlabel('Number of elements')
-    ax.axes.set_ylabel('Vectorization efficiency')
+    ax.axes.set_xlabel('Number of elements') # set values
+    ax.axes.set_ylabel('Vectorization efficiency') # set values
     plt.plot(x, y, '-o')
     plt.plot(x, y, 'g.', x_out, y_pred, 'b-')
 
     plt.show()
 
-number_of_el_I_depend(5)
+
+if __name__ == '__main__':
+    t1 = time.time()
+    number_of_el_I_depend(5)
+    print('Время работы: ' + str(time.time() - t1))
