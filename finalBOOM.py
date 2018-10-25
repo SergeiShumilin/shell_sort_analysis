@@ -4,6 +4,14 @@ from macpath import join
 from os import listdir
 import matplotlib.pyplot as plt
 ########################################################################################################################
+"""
+Launch plot() and plot()
+
+
+
+
+
+"""
 def get_data(seq):
     eff_norm = []
     eff_wo_k = []
@@ -43,6 +51,7 @@ def plot():
     ax.plot(ns,get_data('h')[0],label='Hibbard sequence',color='black',linewidth=4)
     ax.plot(ns,get_data('2')[0],label='Pratt sequence',color='black')
     make_legend(ax)
+    ax.grid()
     set_fontsize(ax)
     add_inscriptions(ax)
     plt.show()
@@ -93,6 +102,7 @@ def plot2():
     ax.plot(ns, get_data2('result_s.txt'), label='Sedgwick sequence', color='black', linestyle=':',linewidth=3)
     ax.plot(ns, get_data2('result_h.txt'), label='Hibbard sequence', color='black',linewidth=4)
     ax.plot(ns, get_data2('result_2.txt'), label='Pratt sequence', color='black')
+    ax.grid()
     make_legend(ax)
     set_fontsize(ax)
     add_inscriptions(ax)
